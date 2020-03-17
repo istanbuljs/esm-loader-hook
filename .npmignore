@@ -1,0 +1,8 @@
+.github
+.c8rc.json
+*.tgz
+package
+coverage
+fixtures
+tap-snapshots
+test

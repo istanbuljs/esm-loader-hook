@@ -1,0 +1,43 @@
+{
+	"name": "@istanbuljs/esm-loader-hook",
+	"version": "0.1.0",
+	"description": "Loader hook for ESM instrumentation (experimental!!)",
+	"type": "module",
+	"main": "index.js",
+	"exports": "./index.js",
+	"scripts": {
+		"pretest": "cfware-lint .",
+		"tests-only": "c8 -r none node test/index.js | tap-yaml-summary",
+		"test": "npm run -s tests-only",
+		"posttest": "c8 report --check-coverage",
+		"snap": "cross-env TAP_SNAPSHOT=1 npm test",
+		"release": "standard-version"
+	},
+	"engines": {
+		"node": ">=13.7.0"
+	},
+	"license": "ISC",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/istanbuljs/esm-loader-hook.git"
+	},
+	"bugs": {
+		"url": "https://github.com/istanbuljs/esm-loader-hook/issues"
+	},
+	"homepage": "https://github.com/istanbuljs/esm-loader-hook#readme",
+	"dependencies": {
+		"@babel/core": "^7.8.7",
+		"@istanbuljs/load-nyc-config": "^1.0.0",
+		"@istanbuljs/schema": "^0.1.2",
+		"babel-plugin-istanbul": "^6.0.0",
+		"test-exclude": "^6.0.0"
+	},
+	"devDependencies": {
+		"@cfware/lint": "^1.4.0",
+		"c8": "^7.1.0",
+		"cross-env": "^7.0.2",
+		"libtap": "^0.3.0",
+		"standard-version": "^7.1.0",
+		"tap-yaml-summary": "^0.1.0"
+	}
+}
