@@ -1,0 +1,6 @@
+{
+	"type": "module",
+	"peerDependencies": {
+		"@istanbuljs/load-nyc-config": "*"
+	}
+}

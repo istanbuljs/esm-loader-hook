@@ -8,20 +8,24 @@ function nycEnvironmentConfig() {
 	try {
 		return JSON.parse(process.env.NYC_CONFIG);
 	} catch {
-		return null;
 	}
 }
 
-const initialCWD = process.env.NYC_CWD || process.cwd();
-let nycConfig = nycEnvironmentConfig();
+let nycConfig;
 let testExclude;
 let babelConfig;
 
 export async function transformSource(source, context) {
-	if (nycConfig === null) {
-		nycConfig = {
+	if (loader.isLoading()) {
+		return {source};
+	}
+
+	if (!nycConfig) {
+		nycConfig = nycEnvironmentConfig() || {
 			...schema.defaults.nyc,
-			...await loader.loadNycConfig({cwd: initialCWD})
+			...await loader.loadNycConfig({
+				cwd: process.env.NYC_CWD || process.cwd()
+			})
 		};
 	}
 

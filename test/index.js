@@ -36,13 +36,32 @@ test('transform hook', async t => {
 		{
 			env: {
 				...process.env,
+				NYC_CWD: fileURLToPath(new URL('../fixtures', import.meta.url).href),
 				NODE_OPTIONS: [].concat(
 					process.env.NODE_OPTIONS || [],
 					'--experimental-loader @istanbuljs/esm-loader-hook'
 				).join(' ')
 			}
 		},
-		'transform1.js'
+		'transform-hook.js'
+	);
+});
+
+test('load config with transform hook', async t => {
+	await t.spawn(
+		process.execPath,
+		[fileURLToPath(new URL('transform-hook-load-config.js', import.meta.url).href)],
+		{
+			cwd: fileURLToPath(new URL('../fixtures', import.meta.url).href),
+			env: {
+				...process.env,
+				NODE_OPTIONS: [].concat(
+					process.env.NODE_OPTIONS || [],
+					`--experimental-loader ${new URL('../index.js', import.meta.url).href}`
+				).join(' ')
+			}
+		},
+		'transform-hook-load-config.js'
 	);
 });
 
