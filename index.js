@@ -15,9 +15,9 @@ let nycConfig;
 let testExclude;
 let babelConfig;
 
-export async function transformSource(source, context) {
-	if (loader.isLoading()) {
-		return {source};
+export async function transformSource(source, context, defaultTransformSource) {
+	if (context.format !== 'module' || loader.isLoading()) {
+		return defaultTransformSource(source, context, defaultTransformSource);
 	}
 
 	if (!nycConfig) {
@@ -41,16 +41,14 @@ export async function transformSource(source, context) {
 		};
 	}
 
-	if (Buffer.isBuffer(source)) {
-		source = source.toString();
-	} else if (typeof source !== 'string') {
-		return {source};
-	}
-
 	const filename = fileURLToPath(context.url);
 	/* babel-plugin-istanbul does this but the early check optimizes */
 	if (!testExclude.shouldInstrument(filename)) {
-		return {source};
+		return defaultTransformSource(source, context, defaultTransformSource);
+	}
+
+	if (typeof source !== 'string') {
+		source = new TextDecoder().decode(source);
 	}
 
 	/* Can/should this handle inputSourceMap? */
@@ -71,5 +69,5 @@ export async function transformSource(source, context) {
 		]
 	});
 
-	return {source: code};
+	return defaultTransformSource(code, context, defaultTransformSource);
 }
