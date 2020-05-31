@@ -1,7 +1,6 @@
 import {fileURLToPath} from 'url';
 
 import {test} from 'libtap';
-// eslint-disable-next-line import/no-unresolved
 import * as loaderHook from '@istanbuljs/esm-loader-hook';
 
 test('exports', async t => {
@@ -13,20 +12,15 @@ test('transform buffer', async t => {
 	const {source} = await loaderHook.transformSource(
 		Buffer.from('export default true;'),
 		{
+			format: 'module',
 			url: new URL('../fixtures/buffer.js', import.meta.url)
-		}
+		},
+		source => ({source})
 	);
 
 	t.match(source, /function\s+cov_/u);
 	t.match(source, /export\s+default\s+true/u);
 	t.match(source, /\/\/# sourceMappingURL=/u);
-});
-
-test('transform not string', async t => {
-	const notString = {};
-	const {source} = await loaderHook.transformSource(notString);
-
-	t.equal(source, notString);
 });
 
 test('transform hook', async t => {

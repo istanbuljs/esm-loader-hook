@@ -1,12 +1,12 @@
 import {test} from 'libtap';
-// eslint-disable-next-line import/no-unresolved
 import {transformSource} from '@istanbuljs/esm-loader-hook';
 
 test('check transform', async t => {
 	const context = {
+		format: 'module',
 		url: new URL('../fixtures/no-source-map.js', import.meta.url)
 	};
-	const {source} = await transformSource('export default true;', context);
+	const {source} = await transformSource('export default true;', context, source => ({source}));
 
 	t.match(source, /function\s+cov_/u);
 	t.match(source, /export\s+default\s+true/u);
