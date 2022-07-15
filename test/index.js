@@ -4,18 +4,19 @@ import {test} from 'libtap';
 import * as loaderHook from '@istanbuljs/esm-loader-hook';
 
 test('exports', async t => {
-	t.same(Object.keys(loaderHook), ['transformSource']);
-	t.match(loaderHook, {transformSource: Function});
+	t.same(Object.keys(loaderHook), ['load']);
+	t.match(loaderHook, {load: Function});
 });
 
 test('transform buffer', async t => {
-	const {source} = await loaderHook.transformSource(
-		Buffer.from('export default true;'),
+	const {source} = await loaderHook.load(
+		new URL('../fixtures/buffer.js', import.meta.url),
 		{
-			format: 'module',
-			url: new URL('../fixtures/buffer.js', import.meta.url)
+			format: 'module'
 		},
-		source => ({source})
+		() => ({
+			source: Buffer.from('export default true;')
+		})
 	);
 
 	t.match(source, /function\s+cov_/u);

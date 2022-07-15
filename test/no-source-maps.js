@@ -1,12 +1,11 @@
 import {test} from 'libtap';
-import {transformSource} from '@istanbuljs/esm-loader-hook';
+import {load} from '@istanbuljs/esm-loader-hook';
 
 test('check transform', async t => {
-	const context = {
-		format: 'module',
-		url: new URL('../fixtures/no-source-map.js', import.meta.url)
-	};
-	const {source} = await transformSource('export default true;', context, source => ({source}));
+	const {source} = await load(
+		new URL('../fixtures/no-source-map.js', import.meta.url),
+		{format: 'module'},
+		() => ({source: 'export default true;'}));
 
 	t.match(source, /function\s+cov_/u);
 	t.match(source, /export\s+default\s+true/u);
