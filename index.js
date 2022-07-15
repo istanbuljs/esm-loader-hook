@@ -15,9 +15,9 @@ let nycConfig;
 let testExclude;
 let babelConfig;
 
-export async function transformSource(source, context, defaultTransformSource) {
+export async function load(url, context, nextLoad) {
 	if (context.format !== 'module' || loader.isLoading()) {
-		return defaultTransformSource(source, context, defaultTransformSource);
+		return nextLoad(url, context);
 	}
 
 	if (!nycConfig) {
@@ -41,12 +41,14 @@ export async function transformSource(source, context, defaultTransformSource) {
 		};
 	}
 
-	const filename = fileURLToPath(context.url);
+	const filename = fileURLToPath(url);
 	/* babel-plugin-istanbul does this but the early check optimizes */
 	if (!testExclude.shouldInstrument(filename)) {
-		return defaultTransformSource(source, context, defaultTransformSource);
+		return nextLoad(url, context);
 	}
 
+	const fromNext = await nextLoad(url, context);
+	let {source} = fromNext;
 	if (typeof source !== 'string') {
 		source = new TextDecoder().decode(source);
 	}
@@ -56,7 +58,7 @@ export async function transformSource(source, context, defaultTransformSource) {
 		babelrc: false,
 		configFile: false,
 		filename,
-		/* Revisit this if transformSource adds support for returning sourceMap object */
+		/* Revisit this if the load hook adds support for returning sourceMap object */
 		sourceMaps: babelConfig.produceSourceMap ? 'inline' : false,
 		compact: babelConfig.compact,
 		comments: babelConfig.preserveComments,
@@ -69,5 +71,8 @@ export async function transformSource(source, context, defaultTransformSource) {
 		]
 	});
 
-	return defaultTransformSource(code, context, defaultTransformSource);
+	return {
+		format: fromNext.format,
+		source: code
+	};
 }
