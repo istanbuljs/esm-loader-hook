@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/istanbuljs/esm-loader-hook/compare/v0.1.2...v0.2.0) (2022-07-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* Node.js 16.12.0 is required
+
+### Bug Fixes
+
+* Work with Node.js >=16.12.0 ([4ea4529](https://github.com/istanbuljs/esm-loader-hook/commit/4ea45295141690af27e0497afc1495b710453ed0)), closes [#6](https://github.com/istanbuljs/esm-loader-hook/issues/6)
+
 ### [0.1.2](https://github.com/istanbuljs/esm-loader-hook/compare/v0.1.1...v0.1.2) (2020-05-31)
 
 
