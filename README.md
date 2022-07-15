@@ -7,7 +7,7 @@
 
 This [loader hook](https://nodejs.org/dist/latest/docs/api/esm.html#esm_hooks)
 makes it relatively easy to use NYC to check coverage of ESM running in node.js
-13.7.0.  Note this makes use of **experimental** node.js features and thus may
+16.12.0.  Note this makes use of **experimental** node.js features and thus may
 stop working upon release of new versions of node.js.  Until the node.js feature
 is stabilized breakage should not be unexpected.
 
@@ -31,7 +31,7 @@ cross-env 'NODE_OPTIONS=--experimental-loader @istanbuljs/esm-loader-hook' nyc m
 
 ## Configuration
 
-This module executes [babel-plugin-istanbul] in a transformSource loader hook.  No
+This module executes [babel-plugin-istanbul] in a loader hook.  No
 options are provided to the babel plugin and babel configuration files are not honored.
 Normally configuration will be provided by the currently running instance of nyc.  If
 this module is run outside nyc then it will use `@istanbuljs/load-nyc-config` to load
