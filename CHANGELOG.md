@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/istanbuljs/esm-loader-hook/compare/esm-loader-hook-v0.2.0...esm-loader-hook-v0.3.0) (2024-12-27)
+
+
+### Features
+
+* add @babel/plugin-syntax-decorators and @babel/preset-typescript presets ([4c18cf8](https://github.com/istanbuljs/esm-loader-hook/commit/4c18cf8611c1c00524cb42e85913794f0c8d3ede))
+
 ## [0.2.0](https://github.com/istanbuljs/esm-loader-hook/compare/v0.1.2...v0.2.0) (2022-07-15)
 
 
