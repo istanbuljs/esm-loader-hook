@@ -55,6 +55,7 @@ export async function load(url, context, nextLoad) {
 
 	/* Can/should this handle inputSourceMap? */
 	const {code} = await babel.transformAsync(source, {
+		presets: ['@babel/preset-typescript'],
 		babelrc: false,
 		configFile: false,
 		filename,
@@ -67,7 +68,8 @@ export async function load(url, context, nextLoad) {
 			plugins: babelConfig.parserPlugins
 		},
 		plugins: [
-			['babel-plugin-istanbul', babelConfig]
+			['babel-plugin-istanbul', babelConfig],
+			['@babel/plugin-syntax-decorators', {decoratorsBeforeExport: true}]
 		]
 	});
 
