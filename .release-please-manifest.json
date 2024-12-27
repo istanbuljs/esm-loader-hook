@@ -1,8 +1,3 @@
 {
-  "packages": {
-    ".": {
-      "release-type": "node",
-      "bootstrap-sha": "27b23985550473799232d1fbab9bc8b34891deea"
-    }
-  }
+    ".": "0.2.0"
 }
