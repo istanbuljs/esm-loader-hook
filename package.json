@@ -39,5 +39,6 @@
 		"cross-env": "^7.0.3",
 		"libtap": "^1.4.0",
 		"tap-yaml-summary": "^0.1.0"
-	}
+	},
+    "files": ["index.js"]
 }
